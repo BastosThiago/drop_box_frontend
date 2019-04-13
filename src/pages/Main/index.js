@@ -6,18 +6,17 @@ import './styles.css';
 
 export default class Main extends Component {
   state = {
-    newBox = ""
+    newBox : ""
   }
 
   handleSubmit = async e => {
     e.preventDefault();
-    console.log(this.state.newBox);
 
     const response = await api.post("boxes", {
-      title: this.state.newBox,
+      title: this.state.newBox
     });
 
-    console.log(response.data);
+    this.props.history.push(`/box/${response.data._id}`)
   }
 
   handleInputChange = e => {
@@ -28,7 +27,7 @@ export default class Main extends Component {
   render() {
     return (
         <div id="main-container">
-          <form action="">
+          <form onSubmit={this.handleSubmit}>
             <img src={logo} alt=""/>
             <input 
               placeholder="Criar um box"
